@@ -1,0 +1,120 @@
+#toplama
+5+5
+#veri vektörleri
+derece<-90
+derece
+derece<-c(95,85,100,90,100)
+derece
+isim<-c("Ayşe","Fatma","Gülşah","İsmet","Kısmet")
+isim
+#veri çerçevesi
+vç<-data.frame(derece,isim)
+vç
+dim.data.frame(vç)
+dim(vç)
+#matris
+m<-matrix(nrow = 2,ncol = 5)
+m
+dim(m)
+
+eleman<-matrix(1:6,2,3)
+eleman
+
+vek<-matrix(c(2,4,9,18,3,5),nrow=2,ncol = 3)
+vek
+
+rbind(derece,isim)
+cbind(derece,isim)
+
+
+str(eleman)
+str(vç)
+summary(vç)
+
+#dizin ya da dosyalar
+
+getwd()
+setwd("/Users/esrus/Desktop")
+getwd()
+
+write.csv(vç,"dosya oluşturma.csv")
+veri<- read.csv("dosya oluşturma.csv",header = TRUE)
+
+str(veri)
+
+data()
+data(iris)
+str(iris)
+summary(iris)
+head(iris)
+tail(iris)
+head(iris[1:3,])
+
+#veri tabanından bilgi çekme
+install.packages("RMySQL")
+library(DBI)
+bağlantı<-dbConnect(RMySQL:MySQL(),
+                    dbname="...",
+                    host="...",
+                    port="...",
+                    user="...",
+                    password="...")
+
+dbListTables(bağlantı)
+
+dbReadTable(bağlantı,"Çalışanlar")
+
+çalışan_df<-dbReadTable(bağlantı,"Çalışanlar")
+
+tablo_isimleri<-dbListTables(bağlantı)
+
+tablolar<-lapply(tablo_isimleri,dbReadtable,conn=con)
+
+dbDisconnect(bağlantı)
+
+
+
+
+
+
+#finansal verilerle çalışmak
+
+library(quantmod)
+getSymbols("TSLA")
+"TSLA"
+head(TSLA)
+
+tesla=getSymbols("TSLA",src = "google",auto.assign = FALSE)
+
+tesla=getSymbols("TSLA",src = "yahoo",auto.assign = FALSE)
+
+head(tesla)
+
+str(TSLA)
+
+
+getSymbols("FB",from="2017-02-01",to="2017-06-30")
+
+head(FB)
+
+btc<-Quandl.search(query="bitcoin")
+
+
+
+#finansal verilerle oynama
+FB_open<-Op(FB)
+head(FB_open)
+
+FB_high<-Hi(FB)
+head(FB_high)
+
+
+
+fb_ohlc<-OHLC(FB)
+fb_hlc<-HLC(FB)
+fb_ohlcv<-OHLCV(FB)
+head(fb_hlc,3)
+
+
+
+
